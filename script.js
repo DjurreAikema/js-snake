@@ -5,6 +5,7 @@ const gameBoard = document.getElementById('gameBoard');
 const boardSize = 20;
 let snake = [{x: 10, y: 10}];
 let food = generateFood();
+let direction = 'right';
 
 // Draw gameBoard, snake, food
 function draw() {
@@ -49,4 +50,30 @@ function generateFood() {
   return {x, y};
 }
 
-draw();
+// Moving the snake
+function moveSnake() {
+  const head = {...snake[0]};
+  switch (direction) {
+    case "up":
+      head.y--;
+      break;
+    case "right":
+      head.x++;
+      break;
+    case "down":
+      head.y++;
+      break;
+    case "left":
+      head.x--;
+      break;
+  }
+
+  // Add new head and remove tail
+  snake.unshift(head);
+  snake.pop();
+}
+
+setInterval(() => {
+  moveSnake();
+  draw();
+}, 200);
