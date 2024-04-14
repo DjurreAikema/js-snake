@@ -91,5 +91,12 @@ function moveSnake() {
 
 function startGame() {
   gameStarted = true; // Keep track of a running game
-  instructionText
+  instructionText.style.display = 'none';
+  logo.style.display = 'none';
+
+  gameInterval = setInterval(() => {
+    moveSnake();
+    // checkCollision();
+    draw();
+  }, gameSpeedDelay);
 }
