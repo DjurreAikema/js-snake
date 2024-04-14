@@ -1,11 +1,16 @@
 // Define html elements
+const logo = document.getElementById('logo');
 const gameBoard = document.getElementById('gameBoard');
+const instructionText = document.getElementById('instructionText');
 
 // Define game variables
 const boardSize = 20;
 let snake = [{x: 10, y: 10}];
 let food = generateFood();
 let direction = 'right';
+let gameInterval;
+let gameSpeedDelay = 200;
+let gameStarted = false;
 
 // Draw gameBoard, snake, food
 function draw() {
@@ -70,10 +75,21 @@ function moveSnake() {
 
   // Add new head and remove tail
   snake.unshift(head);
-  snake.pop();
+
+  // snake.pop();
+  if (head.x === food.x && head.y === food.y) {
+    food = generateFood();
+    clearInterval(); // Clear past interval
+    gameInterval = setInterval(() => {
+      moveSnake();
+      draw();
+    }, gameSpeedDelay);
+  } else {
+    snake.pop();
+  }
 }
 
-setInterval(() => {
-  moveSnake();
-  draw();
-}, 200);
+function startGame() {
+  gameStarted = true; // Keep track of a running game
+  instructionText
+}
